@@ -136,9 +136,12 @@ public class userStoryOrdering extends BaseDriver {
         WebElement checkoutbtn2 = driver.findElement(By.id("checkout"));
         checkoutbtn2.click();
 
-        assertEquals("https://demowebshop.tricentis.com/onepagecheckout", driver.getCurrentUrl());
         WebElement continuebtn = driver.findElement(By.xpath("(//input[@class='button-1 new-address-next-step-button'])[1]"));
         wait.until(ExpectedConditions.elementToBeClickable(continuebtn));
+        assertEquals("https://demowebshop.tricentis.com/onepagecheckout", driver.getCurrentUrl());
+
+        WebElement countryselector = driver.findElement(By.xpath("//select[@name='BillingNewAddress.CountryId']"));
+        wait.until(ExpectedConditions.elementToBeSelected(countryselector));
 
         gozleBagla();
     }
