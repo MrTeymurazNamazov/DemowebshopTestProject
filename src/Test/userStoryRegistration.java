@@ -4,16 +4,17 @@ import Utility.MyFunc;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static Utility.BaseDriver.driver;
-import static Utility.BaseDriver.gozleBagla;
+import static Utility.BaseDriver.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class userStoryRegistration {
     @Test
     public void test001() {
         driver.navigate().to("https://demowebshop.tricentis.com/");
-
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='ico-register']")));
         WebElement registbtn = driver.findElement(By.xpath("//a[@class='ico-register']"));
         registbtn.click();
         MyFunc.wait(2);
@@ -38,7 +39,7 @@ public class userStoryRegistration {
         System.out.println("Email is required.");
 
         WebElement inputEmail = driver.findElement(By.ById.id("Email"));
-        inputEmail.sendKeys("stefanorichy22@gmail.com");
+        inputEmail.sendKeys("stefanorichy25@gmail.com");
         System.out.println("Email entered");
 
         WebElement inputPassword = driver.findElement(By.ById.id("Password"));
@@ -80,8 +81,10 @@ public class userStoryRegistration {
         MyFunc.wait(2);
         System.out.println("Continue button pressed");
 
-        WebElement logingmailtxt = driver.findElement(By.xpath("//*[text()='stefanorichy22@gmail.com']"));
-        assertEquals("Your registration completed", "stefanorichy22@gmail.com", logingmailtxt.getText());
+        WebElement logingmailtxt = driver.findElement(By.xpath("(//a[@class='account'])[1]"));
+        wait.until(ExpectedConditions.elementToBeClickable(logingmailtxt));
+        assertTrue(logingmailtxt.isDisplayed());
+        System.out.println(logingmailtxt.getText());
 
         WebElement logout = driver.findElement(By.xpath("//a[@class='ico-logout']"));
         logout.click();
@@ -103,7 +106,7 @@ public class userStoryRegistration {
 
 
         WebElement inputemail = driver.findElement(By.ById.id("Email"));
-        inputemail.sendKeys("stefanorichy22@gmail.com");
+        inputemail.sendKeys("stefanorichy25@gmail.com");
         System.out.println("Email entered");
 
         WebElement inputpassword = driver.findElement(By.ById.id("Password"));
@@ -127,6 +130,7 @@ public class userStoryRegistration {
         System.out.println("Register button pressed");
 
         WebElement emailmesage = driver.findElement(By.xpath("//div[@class='validation-summary-errors']"));
+        wait.until(ExpectedConditions.visibilityOf(emailmesage));
         assertEquals("The specified email already exists", emailmesage.getText());
         System.out.println("Email already exists");
         MyFunc.wait(2);

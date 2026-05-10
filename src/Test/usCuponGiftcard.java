@@ -1,6 +1,5 @@
 package Test;
 
-import Utility.BaseDriver;
 import Utility.MyFunc;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -8,14 +7,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import static Utility.BaseDriver.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class userStoryOrdering extends BaseDriver {
-
+public class usCuponGiftcard {
     @Test
     public void test001() {
-
         driver.navigate().to("https://demowebshop.tricentis.com/");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='ico-login']")));
         WebElement loginbtn = driver.findElement(By.xpath("//a[@class='ico-login']"));
@@ -81,7 +79,7 @@ public class userStoryOrdering extends BaseDriver {
         WebElement notificationBar = driver.findElement(By.xpath("//div[@id='bar-notification']"));
         wait.until(ExpectedConditions.visibilityOf(notificationBar));
         assertTrue(notificationBar.isDisplayed());
-        System.out.println("Notification bar asserted");
+        System.out.println(notificationBar.getText());
 
         WebElement shopingCartbtn = driver.findElement(By.xpath("(//span[@class='cart-label'])[1]"));
         shopingCartbtn.click();
@@ -93,9 +91,31 @@ public class userStoryOrdering extends BaseDriver {
 
         WebElement notebookName = driver.findElement(By.xpath("//a[@class='product-name']"));
         assertEquals("14.1-inch Laptop", notebookName.getText());
+        System.out.println("Notebook name asserted");
 
         WebElement pricetxt = driver.findElement(By.xpath("//span[@class='product-unit-price']"));
         assertEquals("1590.00", pricetxt.getText());
+        System.out.println("Price asserted");
+
+        WebElement cuponbtn = driver.findElement(By.xpath("//input[@name='applydiscountcouponcode']"));
+        cuponbtn.click();
+        MyFunc.wait(2);
+        System.out.println("Cupon button pressed");
+
+        WebElement message = driver.findElement(By.xpath("//div[@class='message']"));
+        wait.until(ExpectedConditions.visibilityOf(message));
+        assertTrue(message.isDisplayed());
+        System.out.println(message.getText());
+
+        WebElement giftCardbtn = driver.findElement(By.xpath("//input[@name='applygiftcardcouponcode']"));
+        assertTrue(giftCardbtn.isDisplayed());
+        giftCardbtn.click();
+        System.out.println("GiftCard btn is pressed");
+
+        WebElement message2 = driver.findElement(By.xpath("//div[@class='message']"));
+        wait.until(ExpectedConditions.visibilityOf(message2));
+        assertTrue(message2.isDisplayed());
+        System.out.println(message2.getText());
 
         WebElement countrySelector = driver.findElement(By.id("CountryId"));
         Select javaSelect = new Select(countrySelector);
@@ -120,12 +140,12 @@ public class userStoryOrdering extends BaseDriver {
         System.out.println("Estimate Shipping button pressed");
 
         WebElement groundtxt = driver.findElement(By.className("option-name"));
-        System.out.println(groundtxt.getText());
         assertEquals("Ground (0.00)", groundtxt.getText());
+        System.out.println(groundtxt.getText());
 
         WebElement checkoutbtn1 = driver.findElement(By.id("checkout"));
         checkoutbtn1.click();
-        System.out.println("Checkout button pressed");
+        System.out.println("Checkout button1 pressed");
 
         WebElement termstxt = driver.findElement(By.xpath("//*[text()='Please accept the terms of service before the next step.']"));
         assertTrue(termstxt.isDisplayed());
@@ -141,11 +161,16 @@ public class userStoryOrdering extends BaseDriver {
 
         WebElement checkoutbtn2 = driver.findElement(By.id("checkout"));
         checkoutbtn2.click();
-        System.out.println("Checkout button2 pressed");
+        System.out.println("checkout btn2  is pressed");
 
         WebElement continuebtn = driver.findElement(By.xpath("(//input[@class='button-1 new-address-next-step-button'])[1]"));
         wait.until(ExpectedConditions.elementToBeClickable(continuebtn));
         assertEquals("https://demowebshop.tricentis.com/onepagecheckout", driver.getCurrentUrl());
+
+        WebElement billingAddresstxt = driver.findElement(By.xpath("//h2[text()='Billing address']"));
+        wait.until(ExpectedConditions.visibilityOf(billingAddresstxt));
+        assertTrue(billingAddresstxt.isDisplayed());
+        System.out.println(billingAddresstxt.getText());
 
         gozleBagla();
     }

@@ -1,6 +1,5 @@
 package Test;
 
-import Utility.BaseDriver;
 import Utility.MyFunc;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -8,14 +7,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import static Utility.BaseDriver.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class userStoryOrdering extends BaseDriver {
-
+public class userStoryBillingAddress {
     @Test
     public void test001() {
-
         driver.navigate().to("https://demowebshop.tricentis.com/");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='ico-login']")));
         WebElement loginbtn = driver.findElement(By.xpath("//a[@class='ico-login']"));
@@ -81,7 +79,6 @@ public class userStoryOrdering extends BaseDriver {
         WebElement notificationBar = driver.findElement(By.xpath("//div[@id='bar-notification']"));
         wait.until(ExpectedConditions.visibilityOf(notificationBar));
         assertTrue(notificationBar.isDisplayed());
-        System.out.println("Notification bar asserted");
 
         WebElement shopingCartbtn = driver.findElement(By.xpath("(//span[@class='cart-label'])[1]"));
         shopingCartbtn.click();
@@ -125,10 +122,12 @@ public class userStoryOrdering extends BaseDriver {
 
         WebElement checkoutbtn1 = driver.findElement(By.id("checkout"));
         checkoutbtn1.click();
-        System.out.println("Checkout button pressed");
+        MyFunc.wait(2);
 
         WebElement termstxt = driver.findElement(By.xpath("//*[text()='Please accept the terms of service before the next step.']"));
         assertTrue(termstxt.isDisplayed());
+        MyFunc.wait(2);
+
         WebElement termssmsclosebtn = driver.findElement(By.xpath("//span[@class='ui-button-icon-primary ui-icon ui-icon-closethick']"));
         termssmsclosebtn.click();
         MyFunc.wait(2);
@@ -139,13 +138,82 @@ public class userStoryOrdering extends BaseDriver {
         MyFunc.wait(2);
         System.out.println("Terms of Service button pressed");
 
-        WebElement checkoutbtn2 = driver.findElement(By.id("checkout"));
+        WebElement checkoutbtn2 = driver.findElement(By.xpath("//button[@class='button-1 checkout-button']"));
         checkoutbtn2.click();
-        System.out.println("Checkout button2 pressed");
+        System.out.println("checkout btn pressed");
 
         WebElement continuebtn = driver.findElement(By.xpath("(//input[@class='button-1 new-address-next-step-button'])[1]"));
         wait.until(ExpectedConditions.elementToBeClickable(continuebtn));
+
+        WebElement billingAddressSelect = driver.findElement(By.xpath("//select[@id='BillingNewAddress_CountryId']"));
+        Select billingAddress = new Select(billingAddressSelect);
+        billingAddress.selectByValue("1");
+        MyFunc.wait(2);
+        System.out.println("Billing Address Selected");
+
         assertEquals("https://demowebshop.tricentis.com/onepagecheckout", driver.getCurrentUrl());
+
+
+        WebElement StateProvinceSelector = driver.findElement(By.xpath("//select[@name='BillingNewAddress.StateProvinceId']"));
+        Select select1 = new Select(StateProvinceSelector);
+        select1.selectByValue("12");
+        MyFunc.wait(2);
+        System.out.println("State Province Selected to billing");
+
+        continuebtn.click();
+        WebElement cityIsRequiredtxt = driver.findElement(By.xpath("//span[text()='City is required']"));
+        assertTrue(cityIsRequiredtxt.isDisplayed());
+
+        WebElement streetAddressIsRequired = driver.findElement(By.xpath("//span[text()='Street address is required']"));
+        assertTrue(streetAddressIsRequired.isDisplayed());
+
+        WebElement cityAddress = driver.findElement(By.id("BillingNewAddress_City"));
+        cityAddress.sendKeys("wilmington");
+
+        WebElement address1 = driver.findElement(By.id("BillingNewAddress_Address1"));
+        address1.sendKeys("16 Germay Drive ");
+
+        WebElement address2 = driver.findElement(By.id("BillingNewAddress_Address2"));
+        address2.sendKeys("Unit E / ST421647");
+
+        WebElement ZipPostalCode = driver.findElement(By.id("BillingNewAddress_ZipPostalCode"));
+        ZipPostalCode.sendKeys("19804");
+        System.out.println("Zip Postal Code entered");
+
+        WebElement phoneNumber = driver.findElement(By.id("BillingNewAddress_PhoneNumber"));
+        phoneNumber.sendKeys("+13022506811");
+        System.out.println("Phone Number entered");
+
+        WebElement faxNumber = driver.findElement(By.id("BillingNewAddress_FaxNumber"));
+        faxNumber.sendKeys("+13022506811");
+        System.out.println("Fax Number entered");
+
+        WebElement companyName = driver.findElement(By.id("BillingNewAddress_Company"));
+        companyName.sendKeys("Starex");
+        System.out.println("Company Name entered");
+        continuebtn.click();
+        MyFunc.wait(2);
+        System.out.println("Continue button pressed");
+
+        WebElement pickUpInStorebtn = driver.findElement(By.xpath("//input[@id='PickUpInStore']"));
+        wait.until(ExpectedConditions.elementToBeClickable(pickUpInStorebtn));
+        assertEquals("https://demowebshop.tricentis.com/onepagecheckout", driver.getCurrentUrl());
+        pickUpInStorebtn.click();
+        MyFunc.wait(2);
+        System.out.println("Pick up In Store button pressed");
+
+        WebElement shippingAddresstxt = driver.findElement(By.xpath("//*[text()='Shipping address']"));
+        assertTrue("Shipping address", shippingAddresstxt.isDisplayed());
+
+        WebElement continuebtn1 = driver.findElement(By.xpath("//input[@onclick='Shipping.save()']"));
+        continuebtn1.click();
+        MyFunc.wait(2);
+        System.out.println("Continue button pressed");
+
+        WebElement paymentMethodtxt = driver.findElement(By.xpath("//h2[text()='Payment method']"));
+        wait.until(ExpectedConditions.visibilityOf(paymentMethodtxt));
+        assertTrue(paymentMethodtxt.isDisplayed());
+        System.out.println("Payment method is displayed");
 
         gozleBagla();
     }
