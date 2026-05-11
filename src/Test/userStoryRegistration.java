@@ -39,7 +39,7 @@ public class userStoryRegistration {
         System.out.println("Email is required.");
 
         WebElement inputEmail = driver.findElement(By.ById.id("Email"));
-        inputEmail.sendKeys("stefanorichy25@gmail.com");
+        inputEmail.sendKeys("stefanorichy26@gmail.com");
         System.out.println("Email entered");
 
         WebElement inputPassword = driver.findElement(By.ById.id("Password"));
@@ -106,7 +106,7 @@ public class userStoryRegistration {
 
 
         WebElement inputemail = driver.findElement(By.ById.id("Email"));
-        inputemail.sendKeys("stefanorichy25@gmail.com");
+        inputemail.sendKeys("stefanorichy26@gmail.com");
         System.out.println("Email entered");
 
         WebElement inputpassword = driver.findElement(By.ById.id("Password"));
