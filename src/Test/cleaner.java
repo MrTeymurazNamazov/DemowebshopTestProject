@@ -24,7 +24,7 @@ public class cleaner {
         System.out.println("Login button pressed");
 
         WebElement inputEmaillogin = driver.findElement(By.xpath("//input[@id='Email']"));
-        inputEmaillogin.sendKeys("stefanorichy14@gmail.com");
+        inputEmaillogin.sendKeys("caps.team16@gmail.com");
         System.out.println("Email entered");
 
         WebElement loginbtn2 = driver.findElement(By.xpath("//input[@class='button-1 login-button']"));
@@ -37,7 +37,7 @@ public class cleaner {
         System.out.println("Login was unsuccessful.");
 
         WebElement inputPasswordlogin = driver.findElement(By.xpath("//input[@id='Password']"));
-        inputPasswordlogin.sendKeys("kYT3aH4$YYQk9@");
+        inputPasswordlogin.sendKeys("pass1234");
         System.out.println("Password entered");
         MyFunc.wait(2);
 
