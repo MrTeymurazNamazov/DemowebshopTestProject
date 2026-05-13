@@ -301,7 +301,7 @@ public class US206_Sifarish_Order {
         continuebtn4.click();
         MyFunc.wait(2);
         System.out.println("Continue button pressed");
-//        gozleBagla();
+        gozleBagla();
     }
 
 }
